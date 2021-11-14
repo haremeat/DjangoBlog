@@ -11,9 +11,9 @@
     {% for p in post_list %}
     <div class="card mb-4">
         {% if p.head_image %}
-        <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top">
+        <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top head-img">
         {% else %}
-        <img src="http://placehold.it/750x300" alt="Card img cap" class="card-img-top">
+        <img src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="Card img cap" class="card-img-top">
         {% endif %}
         <div class="card-body">
             <h2 class="card-title">{{ p.title }}</h2>
