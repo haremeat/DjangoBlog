@@ -1,2 +1,3 @@
 # DjangoExample
-장고 공부용 사이트
+
+:star: 장고로 사이트를 만들어 보아요 :star:
