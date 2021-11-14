@@ -10,6 +10,9 @@
 <nav>
     <a href="/blog/">Blog</a>
 </nav>
+{% if post.head_image %}
+<img src="{{ post.head_image.url }}" alt="" class="img-responsive">
+{% endif %}
 <h1>{{ post.title }}</h1>
 <h4>{{ post.created_at }}</h4>
 <p>{{ post.content }}</p>
