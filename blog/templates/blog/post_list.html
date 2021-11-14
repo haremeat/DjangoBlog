@@ -1,17 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
 </head>
 <body>
-    <h1>blog blog</h1>
-
-{% for p in post_list %}
-    <hr>
-    <h2><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h2>
-    <h4>{{ p.created_at }}</h4>
-    <p>{{ p.content }}</p>
-{% endfor %}
+<div class="container">
+    {% for p in post_list %}
+    <div class="card mb-4">
+        <img src="http://placehold.it/750x300" alt="Card img cap" class="card-img-top">
+        <div class="card-body">
+            <h2 class="card-title">{{ p.title }}</h2>
+            <p class="card-text">{{ p.content }}</p>
+            <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 </body>
 </html>
