@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 class PostList(ListView):
     model = Post
     ordering = '-pk'  # pk값이 작은 순서대로 보여줘라
     # template_name = 'blog/post_list.html'
 
+class PostDetail(DetailView):
+    model = Post
 
 # Create your views here.
 
@@ -27,7 +29,7 @@ class PostList(ListView):
 #
 #     return render(
 #         request,
-#         'blog/single_post_page.html',
+#         'blog/post_detail.html',
 #         {
 #             'post': post
 #         }
