@@ -2,10 +2,10 @@ from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from .models import Post
 
+
 class TestView(TestCase):
     def setUp(self):
         self.client = Client()
-
 
     def test_post_list(self):
         # 1.1 포스트 목록 페이지를 가져온다.
@@ -30,12 +30,12 @@ class TestView(TestCase):
 
         # 3.1 게시물이 2개가 있다면
         post_001 = Post.objects.create(
-            title = '첫 번째 포스트입니다.',
-            content = '1등이 전부는 아니잖아요?'
+            title='첫 번째 포스트입니다.',
+            content='1등이 전부는 아니잖아요?'
         )
         post_002 = Post.objects.create(
-            title = '두 번째 포스트입니다.',
-            content = '1등이 전부는 아니잖아요?'
+            title='두 번째 포스트입니다.',
+            content='1등이 전부는 아니잖아요?'
         )
         self.assertEqual(Post.objects.count(), 2)
 
