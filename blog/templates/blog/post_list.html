@@ -43,20 +43,32 @@
 
 <div class="container my-3">
     <div class="row">
-        <div class="col-md-8 col-lg-9">
+        <div class="col-md-8 col-lg-9" id="main-area">
             <h1>Blog</h1>
 
+            {% if post_list.exists %}
+
+            {% for p in post_list %}
             <div class="card mb-4">
-                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                                  alt="..."/></a>
+                {% if p.head_image %}
+                <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top head-img">
+                {% else %}
+                <img src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="Card img cap" class="card-img-top">
+                {% endif %}
                 <div class="card-body">
-                    <div class="small text-muted">January 1, 2021</div>
-                    <h2 class="card-title h4">Post Title</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid
-                        atque, nulla.</p>
-                    <a class="btn btn-primary" href="#!">Read more →</a>
+                    <h2 class="card-title">{{ p.title }}</h2>
+                    {% if p.hook_text %}
+                    <h5 class="text-muted">{{ p.hook_text }}</h5>
+                    {% endif %}
+                    <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                    <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
                 </div>
             </div>
+            {% endfor %}
+
+            {% else %}
+                <h3>아직 게시물이 없습니다.</h3>
+            {% endif %}
         </div>
         <div class="col-md-4 col-lg-3">
 
@@ -96,27 +108,6 @@
 
         </div>
     </div>
-</div>
-
-
-<div class="container">
-    {% for p in post_list %}
-    <div class="card mb-4">
-        {% if p.head_image %}
-        <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top head-img">
-        {% else %}
-        <img src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="Card img cap" class="card-img-top">
-        {% endif %}
-        <div class="card-body">
-            <h2 class="card-title">{{ p.title }}</h2>
-            {% if p.hook_text %}
-            <h5 class="text-muted">{{ p.hook_text }}</h5>
-            {% endif %}
-            <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-            <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
-        </div>
-    </div>
-    {% endfor %}
 </div>
 </body>
 </html>
