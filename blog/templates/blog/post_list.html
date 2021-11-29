@@ -1,113 +1,40 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Blog</title>
-    <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
-    <script src="https://kit.fontawesome.com/437de83aea.js" crossorigin="anonymous"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="./index.html">Django</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./blog_list.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about_me.html">About Me</a>
-                    </li>
-                </ul>
+{% extends 'blog/base.html' %}
 
-                <ul class="navbar-nav">
-                    <li class="navbar-item">
-                        <a href="" class="nav-link">Log In</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
+{% block main_area %}
+    <h1>Blog</h1>
 
-<div class="container my-3">
-    <div class="row">
-        <div class="col-md-8 col-lg-9" id="main-area">
-            <h1>Blog</h1>
+    {% if post_list.exists %}
 
-            {% if post_list.exists %}
-
-            {% for p in post_list %}
-            <div class="card mb-4">
-                {% if p.head_image %}
-                <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top head-img">
-                {% else %}
-                <img src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="Card img cap" class="card-img-top">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="card-title">{{ p.title }}</h2>
-                    {% if p.hook_text %}
-                    <h5 class="text-muted">{{ p.hook_text }}</h5>
-                    {% endif %}
-                    <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-                    <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
-                </div>
-            </div>
-            {% endfor %}
-
-            {% else %}
-                <h3>아직 게시물이 없습니다.</h3>
+    {% for p in post_list %}
+    <div class="card mb-4">
+        {% if p.head_image %}
+        <img src="{{ p.head_image.url }}" alt="Card img cap" class="card-img-top head-img">
+        {% else %}
+        <img src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="Card img cap" class="card-img-top">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title">{{ p.title }}</h2>
+            {% if p.hook_text %}
+            <h5 class="text-muted">{{ p.hook_text }}</h5>
             {% endif %}
-        </div>
-        <div class="col-md-4 col-lg-3">
-
-            <div class="card mb-4">
-                <div class="card-header">Search</div>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..."
-                               aria-label="Enter search term..." aria-describedby="button-search"/>
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Categories widget-->
-            <div class="card mb-4">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+            <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
         </div>
     </div>
-</div>
-</body>
-</html>
+    {% endfor %}
+
+    {% else %}
+        <h3>아직 게시물이 없습니다.</h3>
+    {% endif %}
+
+<!-- pagination -->
+<ul class="pagination justify-content-center mb-4">
+    <li class="page-item">
+        <a class="page-link" href="#">&larr; Older</a>
+    </li>
+    <li class="page-item disabled">
+        <a class="page-link" href="#">Newer &rarr;</a>
+    </li>
+</ul>
+
+{% endblock %}
