@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post.Title }} - Blog</title>
-    <link rel="stylesheet" href="{% static 'blog/css/blog-post.css' %}" media="screen">
-    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
-    <script src="https://kit.fontawesome.com/437de83aea.js" crossorigin="anonymous"></script>
-</head>
-<body>
-<nav>
-    <a href="/blog/">Blog</a>
-    <a href="">About Me</a>
-</nav>
+{% extends 'blog/base.html' %}
+
+{% block main_area %}
 {% if post.head_image %}
 <img src="{{ post.head_image.url }}" alt="" class="img-responsive">
 {% endif %}
@@ -34,5 +22,4 @@ Download :
     {{ post.get_file_name }}</a>
 {% endif %}
 <hr>
-</body>
-</html>
+{% endblock %}
