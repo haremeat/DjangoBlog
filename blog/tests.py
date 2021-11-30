@@ -69,6 +69,7 @@ class TestView(TestCase):
         navbar = soup.nav
         self.assertIn('Blog', navbar.text)
         self.assertIn('About Me', navbar.text)
+
         # 2.3 첫 번째 포스트의 제목이 웹 브라우저 탭 타이틀에 들어있다.
         self.assertIn(post_001.title, soup.title.text)
         # 2.4 첫 번째 포스트의 제목이 포스트 영역(post_area)에 있다.
