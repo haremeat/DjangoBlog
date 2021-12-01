@@ -20,6 +20,9 @@
             <p class="card-text">{{ p.content | truncatewords:45 }}</p>
             <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a></h2>
         </div>
+        <div class="card-footer">
+            Posted on {{ p.created }} by <a href="">{{ p.author | upper }}</a>
+        </div>
     </div>
     {% endfor %}
 
