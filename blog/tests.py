@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
-from .models import Post
+from .models import Post, Category
 from django.contrib.auth.models import User
 
 
@@ -10,6 +10,28 @@ class TestView(TestCase):
         self.user_trump = User.objects.create_user(username='trump', password='somepassword')
         self.user_obama = User.objects.create_user(username='obama', password='somepassword')
 
+        self.category_programming = Category.objects.create(name='programming', slug='programming')
+        self.category_music = Category.objects.create(name='music', slug='music')
+
+        post_001 = Post.objects.create(
+            title='첫 번째 포스트입니다.',
+            content='1등이 전부는 아니잖아요?',
+            category=self.category_programming,
+            author=self.user_trump
+        )
+
+        post_002 = Post.objects.create(
+            title='두 번째 포스트입니다.',
+            content='1등이 전부는 아니잖아요?',
+            category=self.category_music,
+            author=self.user_obama
+        )
+
+        post_003 = Post.objects.create(
+            title='세 번째 포스트입니다.',
+            content='카테고리 없음',
+            author=self.user_obama
+        )
 
     def navbar_test(self, soup):
         # 1.4 내비게이션 바가 있다.
@@ -104,6 +126,3 @@ class TestView(TestCase):
 
         # 2.6 첫 번째 포스트의 내용이 포스트 영역에 있다.
         self.assertIn(post_001.content, post_area.text)
-
-
-
