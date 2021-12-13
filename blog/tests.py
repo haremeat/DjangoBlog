@@ -55,6 +55,9 @@ class TestView(TestCase):
 
     def category_card_test(self, soup):
         categories_card = soup.find('div', id='categories-card')
+        self.assertIn('Categories', categories_card.text)
+        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})', categories_card.text)
+        
 
     def test_post_list(self):
         # 1.1 포스트 목록 페이지를 가져온다.
