@@ -62,7 +62,18 @@ class TestView(TestCase):
 
 
     def test_post_list(self):
-        
+        # 포스트가 있는 경우
+        self.assertEqual(Post.objects.count(), 3)
+
+        response = self.client.get('/blog/')
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.navbar_test(soup)
+        self.category_card_test(soup)
+
+        main_area = soup.find('div', id='main_area')
+        self.assertNotIn('아직 게시물이 없습니다', main_area.text)
 
     def test_post_detail(self):
         # 1.1 post가 하나 있다.

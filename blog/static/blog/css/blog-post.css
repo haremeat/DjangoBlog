@@ -13,3 +13,12 @@ nav {
 nav a {
     color: gold;
 }
+
+.float-right {
+    float: right;
+}
+
+.category-badge {
+    background-color: #dedede;
+    color: black !important;
+}
