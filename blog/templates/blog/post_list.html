@@ -1,7 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block main_area %}
-    <h1>Blog {% if category %} <span class="badge badge-secondary float-right category-badge">{{ category }}</span> {% endif %}</h1>
+    <h1>Blog {% if category %} <span class="badge badge-secondary float-right category-badge">{{ category }}</span> {% endif %}
+    {% if tag %} <span class="badge badge-light float-right tag-badge"><i class="fas fa-tags"></i> {{ tag }} ({{tag.post_set.count}})</span> {% endif %}
+    </h1>
 
     {% if post_list.exists %}
 
@@ -26,7 +28,7 @@
 
             {% if p.tags.exists %}
                 <i class="fas fa-tags"></i>
-                {% for tag in p.tags.iterrator %}
+                {% for tag in p.tags.iterator %}
                     <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light">{{ tag }}</span></a>
                 {% endfor %}
                 <br>
