@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from .models import Post
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Post, Category, Tag
+
+
+class PostCreate(CreateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 
 
 class PostList(ListView):
@@ -16,7 +21,6 @@ class PostList(ListView):
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
 
         return context
-
 
 
 def category_page(request, slug):
@@ -38,6 +42,7 @@ def category_page(request, slug):
         }
     )
 
+
 def tag_page(request, slug):
     tag = Tag.objects.get(slug=slug)
     post_list = tag.post_set.all()
@@ -52,6 +57,7 @@ def tag_page(request, slug):
             'no_category_post_count': Post.objects.filter(category=None).count(),
         }
     )
+
 
 class PostDetail(DetailView):
     model = Post
