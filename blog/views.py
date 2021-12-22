@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from .models import Post
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Category, Tag
 
-
-class PostCreate(CreateView):
+# 로그인해야만 접근 가능
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 

@@ -34,9 +34,13 @@ class TestView(TestCase):
         )
 
     def test_create_post(self):
+        # 로그인하지 않으면 status_code가 301이면 안 된다!
         response = self.client.get('/blog/create_post/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)
         soup = BeautifulSoup(response.content, 'html.parser')
+
+        # 로그인을 한다.
+        self.client.login(username='trump', password='somepassword')
 
         self.assertEqual('Create Post - Blog', soup.title.text)
         main_area = soup.find('div', id='main_area')
@@ -76,7 +80,7 @@ class TestView(TestCase):
         self.assertEqual(Post.objects.count(), 3)
 
         response = self.client.get('/blog/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 301)
         soup = BeautifulSoup(response.content, 'html.parser')
 
         self.navbar_test(soup)
