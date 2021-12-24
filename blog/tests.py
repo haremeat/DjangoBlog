@@ -46,6 +46,14 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main_area')
         self.assertIn('Create New Post', main_area.text)
 
+        self.client.post(
+            '/blog/create_post/',
+            {
+                'title': 'Post Form 만들기',
+                'content' : 'Post Form 페이지를 만듭시다',
+            }
+        )
+
 
     def navbar_test(self, soup):
         # 1.4 내비게이션 바가 있다.
