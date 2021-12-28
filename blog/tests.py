@@ -54,6 +54,11 @@ class TestView(TestCase):
             }
         )
 
+        self.assertEqual(Post.objects.count(), 4)
+        last_post = Post.objects.last()
+        self.assertEqual(last_post.title, "Post Form 만들기")
+        self.assertEqual(last_post.author.username, 'trump')
+
 
     def navbar_test(self, soup):
         # 1.4 내비게이션 바가 있다.
