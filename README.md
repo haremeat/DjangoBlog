@@ -1,4 +1,4 @@
-# DjangoBlog
+# :newspaper: DjangoBlog
 
 ## 프로젝트 소개
 장고로 구현한 블로그입니다. 
