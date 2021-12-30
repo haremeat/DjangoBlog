@@ -43,8 +43,16 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 301)
         soup = BeautifulSoup(response.content, 'html.parser')
 
+        # staff가 아닌 유저가 로그인을 한다
         # 로그인을 한다.
         self.client.login(username='trump', password='somepassword')
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 301)
+
+        # staff인 obama로 로그인한다.
+        self.client.login(username='obama', password='somepassword')
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 301)
 
         self.assertEqual('Create Post - Blog', soup.title.text)
         main_area = soup.find('div', id='main_area')
