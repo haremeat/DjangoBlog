@@ -72,6 +72,16 @@ class TestView(TestCase):
         self.assertEqual(last_post.author.username, 'trump')
 
 
+    def test_update_post(self):
+        update_post_url = f'/blog/update_post/{self.post_003.pk}/'
+
+        # 로그인하지 않은 경우
+        response = self.client.get(update_post_url)
+        self.assertNotEqual(response.status_code, 301)
+
+        # 로그인은 했지만 작성자가 아닌 경우
+
+
     def navbar_test(self, soup):
         # 1.4 내비게이션 바가 있다.
         navbar = soup.find('div', id='navbar')
