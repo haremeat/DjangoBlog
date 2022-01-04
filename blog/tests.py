@@ -80,6 +80,15 @@ class TestView(TestCase):
         self.assertNotEqual(response.status_code, 301)
 
         # 로그인은 했지만 작성자가 아닌 경우
+        self.assertNotEqual(self.post_003.author, self.user_trump)
+        self.client.login(
+            username=self.user_trump.username,
+            password='somepassword'
+        )
+        reponse = self.client.get(update_post_url)
+        self.assertEqual(response.status_code, 403)
+
+
 
 
     def navbar_test(self, soup):

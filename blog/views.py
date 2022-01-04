@@ -1,9 +1,24 @@
 from django.shortcuts import render, redirect
 from .models import Post
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Category, Tag
+from django.core.exceptions import PermissionDenied
 
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'tags']
+
+    template_name = 'blog/post_update_form.html'
+
+    # dispatch가 실행되는 순간 방문자가 포스트 작성자가 맞는지 확인
+    def dispatch(self, request, *args, **kwargs):
+        # 로그인 && 작성자일 경우
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
 # 로그인해야만 접근 가능
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
