@@ -58,6 +58,10 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main_area')
         self.assertIn('Create New Post', main_area.text)
 
+        # id_tags_str를 id로 갖는 input이 존재하는지 체크
+        tag_str_input = main_area.find('input', id='id_tags_str')
+        self.assertTrue(tag_str_input)
+
         self.client.post(
             '/blog/create_post/',
             {
