@@ -23,7 +23,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 # 로그인해야만 접근 가능
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'tags']
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
