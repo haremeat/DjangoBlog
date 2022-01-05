@@ -66,7 +66,8 @@ class TestView(TestCase):
             '/blog/create_post/',
             {
                 'title': 'Post Form 만들기',
-                'content' : 'Post Form 페이지를 만듭시다',
+                'content': 'Post Form 페이지를 만듭시다',
+                'tags_str': 'new tag, 한글 태그, python',
             }
         )
 
@@ -74,6 +75,11 @@ class TestView(TestCase):
         last_post = Post.objects.last()
         self.assertEqual(last_post.title, "Post Form 만들기")
         self.assertEqual(last_post.author.username, 'trump')
+
+        self.assertEqual(last_post.tags.count(), 3)
+        self.assertTrue(last_post.tags.get(name='new tag'))
+        self.assertTrue(last_post.tags.get(name='한글 태그'))
+        self.assertEqual(last_post.tags.count(), 5)
 
 
     def test_update_post(self):
