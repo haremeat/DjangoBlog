@@ -100,6 +100,8 @@ class TestView(TestCase):
 
         soup = BeautifulSoup(response.content, 'html.parser')
         main_area = soup.find('div', id='main-area')
+
+        # 태그 입력란 추가
         tag_str_input = main_area.find('input', id='id_tags_str')
         self.assertTrue(tag_str_input)
         self.assertIn('파이썬 공부; python', tag_str_input.attrs['value'])
@@ -113,6 +115,11 @@ class TestView(TestCase):
                 'tags_str': '파이썬 공부; 한글 태그, some tag'
             }
         )
+
+        self.assertIn('파이썬 공부', main_area.text)
+        self.assertIn('한글 태그', main_area.text)
+        self.assertIn('some tag', main_area.text)
+        self.assertNotIn('python', main_area.text)
 
 
     def navbar_test(self, soup):
