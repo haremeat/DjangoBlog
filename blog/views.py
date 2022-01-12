@@ -13,6 +13,15 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
     template_name = 'blog/post_update_form.html'
 
+    # tag 정보 넘기기
+    def get_context_data(self, **kwargs):
+
+        context = super(PostList, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+
+        return context
+
     # dispatch가 실행되는 순간 방문자가 포스트 작성자가 맞는지 확인
     def dispatch(self, request, *args, **kwargs):
         # 로그인 && 작성자일 경우
