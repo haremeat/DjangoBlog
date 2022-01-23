@@ -7,5 +7,4 @@
 - Django
 - SQLite
 - HTML + Bootstrap
-- JQuery
 - javascript
