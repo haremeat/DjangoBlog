@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('single_pages.urls')),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
 # media url 설정
