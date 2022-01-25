@@ -40,7 +40,7 @@
                 </figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    {{ post.content }}
+                    {{ post.get_content_markdown | safe }}
                     {% if post.file_upload %}
                     <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button">
                         Download :
