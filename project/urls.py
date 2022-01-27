@@ -24,6 +24,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('markdownx/', include('markdownx.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # media url 설정
