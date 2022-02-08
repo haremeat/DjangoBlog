@@ -12,13 +12,29 @@
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about_me">About Me</a></li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" id="navbarDropdownMenuLink">
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="/accounts/logout/" class="dropdown-item">Log Out</a>
+                    </div>
+                </li>
+                {% else %}
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Log In</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="col-md-6">
-    <a href="{% provider_login_url 'google' %}" role="button" class="btn btn-outline-dark btn-block btn-sm"><i class="fab fa-google"></i>&nbsp;&nbsp; Login with Google</a>
-    <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i class="far fa-envelope"></i>&nbsp;&nbsp; Login with E-mail</button>
+    <a href="{% provider_login_url 'google' %}" role="button" class="btn btn-outline-dark btn-block btn-sm"><i
+            class="fab fa-google"></i>&nbsp;&nbsp; Login with Google</a>
+    <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i class="far fa-envelope"></i>&nbsp;&nbsp;
+        Login with E-mail
+    </button>
 </div>
