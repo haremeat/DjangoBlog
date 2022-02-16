@@ -37,6 +37,12 @@ class TestView(TestCase):
             author=self.user_obama
         )
 
+        self.comment_001 = Comment.objects.create(
+            post=self.post_001,
+            author=self.user_obama,
+            content='첫 번째 댓글입니다.'
+        )
+
     def test_create_post(self):
         # 로그인하지 않으면 status_code가 301이면 안 된다!
         response = self.client.get('/blog/create_post/')
