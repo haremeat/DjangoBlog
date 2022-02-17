@@ -199,3 +199,9 @@ class TestView(TestCase):
 
         # 2.6 첫 번째 포스트의 내용이 포스트 영역에 있다.
         self.assertIn(post_001.content, post_area.text)
+
+        # comment_area
+        comments_area = soup.find('div', id='comment-area')
+        comment_001_area = comments_area.find('div', id='comment-1')
+        self.assertIn(self.comment_001.author.username, comment_001_area.text)
+        self.assertIn(self.comment_001.content, comment_001_area.text)
