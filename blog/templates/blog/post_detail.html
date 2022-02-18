@@ -62,6 +62,20 @@
                     {% endif %}
                 </section>
             </article>
+
+            {% if post.comment_set.exits %}
+                {% for comment in post.comment_set.iterator %}
+                    <div class="media mb-4" id="comment-{{ comment.pk }}">
+                        <img src="http://placehold.it/50x50" alt="" class="d-flex mr-3 rounded-circle">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ comment.author.username }}   {{ comment.created_at }}</h5>
+                            <p>{{ comment.content | linebreaks }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <hr>
+
             <!-- Comments section-->
             <section class="mb-5">
                 <div class="card bg-light">
