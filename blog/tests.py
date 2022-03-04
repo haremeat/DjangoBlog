@@ -205,3 +205,6 @@ class TestView(TestCase):
         comment_001_area = comments_area.find('div', id='comment-1')
         self.assertIn(self.comment_001.author.username, comment_001_area.text)
         self.assertIn(self.comment_001.content, comment_001_area.text)
+
+    def test_comment_form(self):
+        self.assertEqual(Comment.objects.count(), 1)
