@@ -208,3 +208,4 @@ class TestView(TestCase):
 
     def test_comment_form(self):
         self.assertEqual(Comment.objects.count(), 1)
+        self.assertEqual(self.post_001.comment_set.count(),1)
