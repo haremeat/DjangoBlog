@@ -87,7 +87,6 @@ class TestView(TestCase):
         self.assertTrue(last_post.tags.get(name='한글 태그'))
         self.assertEqual(last_post.tags.count(), 5)
 
-
     def test_update_post(self):
         update_post_url = f'/blog/update_post/{self.post_003.pk}/'
 
@@ -127,7 +126,6 @@ class TestView(TestCase):
         self.assertIn('some tag', main_area.text)
         self.assertNotIn('python', main_area.text)
 
-
     def navbar_test(self, soup):
         # 1.4 내비게이션 바가 있다.
         navbar = soup.find('div', id='navbar')
@@ -147,14 +145,13 @@ class TestView(TestCase):
         about_me_btn = navbar.find('a', text='About Me')
         self.assertEqual(about_me_btn.attrs['href'], '/about_me')
 
-
     def category_card_test(self, soup):
         categories_card = soup.find('div', id='categories-card')
         self.assertIn('Categories', categories_card.text)
-        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})', categories_card.text)
+        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})',
+                      categories_card.text)
         self.assertIn(f'{self.category_music.name} ({self.category_music.post_set.count()})', categories_card.text)
         self.assertIn(f'미분류 (1)', categories_card.text)
-
 
     def test_post_list(self):
         # 포스트가 있는 경우
@@ -208,4 +205,9 @@ class TestView(TestCase):
 
     def test_comment_form(self):
         self.assertEqual(Comment.objects.count(), 1)
-        self.assertEqual(self.post_001.comment_set.count(),1)
+        self.assertEqual(self.post_001.comment_set.count(), 1)
+
+        # 로그인하지 않은 상태
+        response = self.client.get(self.post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
