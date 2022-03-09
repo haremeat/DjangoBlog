@@ -220,3 +220,5 @@ class TestView(TestCase):
 
         comment_area = soup.find('div', id='comment-area')
         self.assertNotIn('Log In and leave a comment', comment_area.text)
+
+        comment_form = comment_area.find('form', id='comment-form')
