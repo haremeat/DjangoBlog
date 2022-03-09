@@ -222,3 +222,4 @@ class TestView(TestCase):
         self.assertNotIn('Log In and leave a comment', comment_area.text)
 
         comment_form = comment_area.find('form', id='comment-form')
+        self.assertTrue(comment_form.find('textarea', id='id_content'))
