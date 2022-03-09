@@ -219,4 +219,4 @@ class TestView(TestCase):
         soup = BeautifulSoup(response.content, 'html.parser')
 
         comment_area = soup.find('div', id='comment-area')
-
+        self.assertNotIn('Log In and leave a comment', comment_area.text)
