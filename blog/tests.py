@@ -231,3 +231,5 @@ class TestView(TestCase):
             follow=True
         )
         self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Comment.objects.count(), 2)
