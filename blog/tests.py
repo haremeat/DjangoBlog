@@ -233,3 +233,6 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(Comment.objects.count(), 2)
+        self.assertEqual(self.post_001.comment_set.count(), 2)
+
+        new_comment = Comment.objects.last()
