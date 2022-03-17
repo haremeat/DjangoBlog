@@ -236,3 +236,11 @@ class TestView(TestCase):
         self.assertEqual(self.post_001.comment_set.count(), 2)
 
         new_comment = Comment.objects.last()
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        self.assertIn(new_comment.post.title, soup.title.text)
+
+        comment_area = soup.find('div', id='comment-area')
+        new_comment_div = comment_area.find('div', id=f'comment-{new_comment.pk}')
+        self.assertIn('obama', new_comment_div)
+        self.assertIn('오바마의 댓글입니다.', new_comment_div.text)
