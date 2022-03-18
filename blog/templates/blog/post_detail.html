@@ -80,10 +80,15 @@
             <section class="mb-5">
                 <div class="card bg-light">
                     <div class="card-body">
-                        <!-- Comment form-->
-                        <form class="mb-4"><textarea class="form-control" rows="3"
-                                                     placeholder="Join the discussion and leave a comment!"></textarea>
+                        <!-- Comments form-->
+                        {% if user.is_authenticated %}
+                        <form id="comment-form" method="post" class="mb-4" action="{{ post.get_absolute_url }} new_comment/">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
+                        {% endif %}
                         <!-- Comment with nested comments-->
                         <div class="d-flex mb-4">
                             <!-- Parent comment-->
