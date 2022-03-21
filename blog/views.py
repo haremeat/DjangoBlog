@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Category, Tag
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
+from .forms import CommentForm
 
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
@@ -21,9 +22,10 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
             for t in self.object.tags.all():
                 tags_str_list.append(t.name)
             context['tags_str_default'] = '; '.join(tags_str_list)
-        # context = super(PostList, self).get_context_data()
-        # context['categories'] = Category.objects.all()
-        # context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context = super(PostList, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
 
         return context
 
